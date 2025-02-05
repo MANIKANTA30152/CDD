@@ -1,0 +1,33 @@
+# HTML
+# Archive your static HTML project and save it with the build record.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+# Create an HTML file
+- script: |
+    echo '<!DOCTYPE html>' > Addition of Two Numbers.html
+    echo '<html lang="en">' >> Addition of Two Numbers.html
+    echo '<head>' >> Addition of Two Numbers.html
+    echo '<meta charset="UTF-8">' >> Addition of Two Numbers.html
+    echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">' >> Addition of Two Numbers.html
+    echo '<title>Simple Web Page</title>' >> Addition of Two Numbers.html
+    echo '</head>' >> Addition of Two Numbers.html
+    echo '<body>' >> Addition of Two Numbers.html
+    echo '<h1>Hello, Azure DevOps!</h1>' >> Addition of Two Numbers.html
+    echo '</body>' >> Addition of Two Numbers.html
+    echo '</html>' >> Addition of Two Numbers.html
+  displayName: 'Create HTML File'
+
+# Serve the HTML file using Python's HTTP server
+- script: |
+    python3 -m http.server 8000 &
+    sleep 10
+    curl http://localhost:8000/Addition of Two Numbers.html
+  displayName: 'Serve and Access HTML File'
